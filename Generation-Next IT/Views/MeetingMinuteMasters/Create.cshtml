@@ -4,7 +4,150 @@
     ViewData["Title"] = "Create Meeting Minute";
 }
 
-<for asp-action="Create" method="post">
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label asp-for="CustomerType" class="control-label">Customer Type</label>
+        <div>
+            <label><input type="radio" asp-for="CustomerType" value="Corporate" /> Corporate</label>
+            <label><input type="radio" asp-for="CustomerType" value="Individual" /> Individual</label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SelectedCustomerName" class="control-label">Customer Name</label>
+        <div>
+            <select asp-for="SelectedCustomerName" class="form-control">
+
+                @*                 @foreach (var customer in (IEnumerable<SelectListItem>)ViewData["Customers"])
+                {
+                <option value="@customer.Value">@customer.Text</option>
+                } *@
+
+                @foreach (var customer in (IEnumerable<SelectListItem>)(ViewData["Customers"] ?? Enumerable.Empty<SelectListItem>()))
+                {
+                    if (customer != null)
+                    {
+                        <option value="@customer.Value">@customer.Text</option>
+                    }
+                    else
+                    {
+                        <p style="color: orange;">Warning: Empty Customers list.</p>
+                    }
+                }
+
+
+            </select>
+            <span asp-validation-for="SelectedCustomerName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Date" class="control-label">Date</label>
+        <div>
+            <input asp-for="Date" class="form-control" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Time" class="control-label">Time</label>
+        <div>
+            <input asp-for="Time" class="form-control" />
+            <span asp-validation-for="Time" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProductServiceID" class="control-label">Product/Service</label>
+        <div>
+            <select asp-for="ProductServiceID" class="form-control" asp-items="@ViewBag.ProductsServices"></select>
+            <span asp-validation-for="ProductServiceID" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Unit" class="control-label">Unit</label>
+        <div>
+            <input asp-for="Unit" class="form-control" readonly />
+            <span asp-validation-for="Unit" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Quantity" class="control-label">Quantity</label>
+        <div>
+            <input asp-for="Quantity" class="form-control" />
+            <span asp-validation-for="Quantity" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MeetingPlace" class="control-label">Meeting Place</label>
+        <div>
+            <input asp-for="MeetingPlace" class="form-control" />
+            <span asp-validation-for="MeetingPlace" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AttendsFromClient" class="control-label">Attends From Client Side</label>
+        <div>
+            <textarea asp-for="AttendsFromClient" class="form-control"></textarea>
+            <span asp-validation-for="AttendsFromClient" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AttendsFromHost" class="control-label">Attends From Host Side</label>
+        <div>
+            <textarea asp-for="AttendsFromHost" class="form-control"></textarea>
+            <span asp-validation-for="AttendsFromHost" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Agenda" class="control-label">Agenda</label>
+        <div>
+            <textarea asp-for="Agenda" class="form-control"></textarea>
+            <span asp-validation-for="Agenda" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Discussion" class="control-label">Discussion</label>
+        <div>
+            <textarea asp-for="Discussion" class="form-control"></textarea>
+            <span asp-validation-for="Discussion" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Decision" class="control-label">Decision</label>
+        <div>
+            <textarea asp-for="Decision" class="form-control"></textarea>
+            <span asp-validation-for="Decision" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+@* UI design achived but not working due to strange error!!!!! *@
+@* UnComment and See yourself *@
+@* <form asp-action="Create" method="post">
     @Html.AntiForgeryToken()
 
     <div class="container">
@@ -13,7 +156,6 @@
         <div class="master-div row">
             <hr />
             <div class="form-group mb-3">
-                @* <label asp-for="CustomerType" class="control-label">Customer Type</label> *@
                 <div>
                     <label><input type="radio" asp-for="CustomerType" value="Corporate" /> Corporate</label>
                     <label><input type="radio" asp-for="CustomerType" value="Individual" /> Individual</label>
@@ -162,12 +304,13 @@
 
         <div class="row col-4 mt-3 mb-2">
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-secondary btn-sm" />
+                
+                <input type="submit" value="Create" class="btn btn-secondary" />
                 <button type="button" class="btn btn-secondary btn-sm">Refresh</button>
             </div>
         </div>
     </div>
-</form>
+</form> *@
 
 
 @section Scripts {
@@ -176,7 +319,7 @@
     }
 
     <script>
-        // Add JavaScript to dynamically load customer names based on radio button selection
+        // dynamically load customer names based on radio button selection
         document.addEventListener("DOMContentLoaded", function () {
             var customerDropdown = document.getElementById("SelectedCustomerName");
             var productServiceDropdown = document.getElementById("ProductServiceID");
@@ -187,12 +330,10 @@
                     fetch(`/MeetingMinuteMasters/GetCustomerNames?customerType=${this.value}`)
                         .then(response => response.json())
                         .then(data => {
-                            // Clear existing options
                             while (customerDropdown.options.length > 0) {
                                 customerDropdown.remove(0);
                             }
 
-                            // Add new options
                             data.forEach(customer => {
                                 var option = document.createElement("option");
                                 option.value = customer.value;
@@ -220,21 +361,15 @@
 
 
 
-        //for produccts
-        // Sample array to store added products
+        //for produccts   -- not working now (i work later)
         var addedProducts = [];
 
-        // Function to add a product and update the table
         function addProduct(product) {
             addedProducts.push(product);
 
-            // Reference to the tbody element
             var tbody = document.getElementById('productTableBody');
-
-            // Clear existing rows
             tbody.innerHTML = '';
 
-            // Loop through addedProducts array and create rows
             addedProducts.forEach(function (product, index) {
                 var row = tbody.insertRow(index);
                 var cellSL = row.insertCell(0);
@@ -245,46 +380,39 @@
 
                 // Assign values to cells
                 cellSL.innerHTML = index + 1;
-                cellName.innerHTML = product.name; // Assuming your product object has a 'name' property
-                cellQuantity.innerHTML = product.quantity; // Assuming your product object has a 'quantity' property
-                cellUnit.innerHTML = product.unit; // Assuming your product object has a 'unit' property
+                cellName.innerHTML = product.name; 
+                cellQuantity.innerHTML = product.quantity; 
+                cellUnit.innerHTML = product.unit;
 
-                // Action buttons (e.g., edit and delete)
+                // Action buttons
                 var editButton = document.createElement('button');
                 editButton.type = 'button';
                 editButton.className = 'btn btn-outline-success btn-sm';
                 editButton.innerHTML = 'Edit';
-                // Add logic for edit button click event
 
                 var deleteButton = document.createElement('button');
                 deleteButton.type = 'button';
                 deleteButton.className = 'btn btn-outline-danger btn-sm';
                 deleteButton.innerHTML = 'Delete';
-                // Add logic for delete button click event
-
-                // Append buttons to the Action cell
+           
                 cellAction.appendChild(editButton);
                 cellAction.appendChild(deleteButton);
             });
         }
 
-        // Example of adding a product (call this when a user adds a product)
         var sampleProduct = { name: 'Sample Product', quantity: 5, unit: 'Pieces' };
         addProduct(sampleProduct);
 
-        // Function to handle the 'Add' button click event
         document.addEventListener("DOMContentLoaded", function () {
             var addButton = document.querySelector('.btn-secondary');
 
             addButton.addEventListener("click", function () {
-                // Sample product data (replace this with your form data)
                 var newProduct = {
                     name: document.getElementById('ProductServiceID').value,
                     quantity: document.getElementById('Quantity').value,
                     unit: document.getElementById('Unit').value
                 };
 
-                // Add the new product to the table
                 addProduct(newProduct);
             });
         });
