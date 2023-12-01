@@ -21,18 +21,6 @@ namespace MonjurTask.Controllers
             _context = context;
         }
 
-        //// GET: MeetingMinute/Index
-        //public async Task<IActionResult> Index()
-        //{
-        //    var meetingMinutes = await _context.Meeting_Minutes_Master_Tbl
-        //        .Include(m => m.CorporateCustomer)
-        //        .Include(m => m.IndividualCustomer)
-        //        .Include(m => m.MeetingMinuteDetails)
-        //        .ToListAsync();
-
-        //    return View(meetingMinutes);
-        //}
-
         // GET: MeetingMinute/Index
         public async Task<IActionResult> Index()
         {
@@ -40,7 +28,7 @@ namespace MonjurTask.Controllers
                 .Include(m => m.CorporateCustomer)
                 .Include(m => m.IndividualCustomer)
                 .Include(m => m.MeetingMinuteDetails)
-                    .ThenInclude(d => d.ProductService) // Include ProductService for MeetingMinuteDetails
+                .ThenInclude(d => d.ProductService) 
                 .ToListAsync();
 
             var viewModelList = meetingMinutes.Select(m => new MeetingMinute_ViewModel
@@ -69,8 +57,6 @@ namespace MonjurTask.Controllers
             return View(viewModelList);
         }
 
-
-
         [HttpGet]
         public IActionResult GetCustomerNames(CustomerType customerType)
         {
@@ -90,7 +76,6 @@ namespace MonjurTask.Controllers
             }
             else
             {
-                // Handle other cases or return an empty list if needed
                 customers = Enumerable.Empty<SelectListItem>();
             }
 
