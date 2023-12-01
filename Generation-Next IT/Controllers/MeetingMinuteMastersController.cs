@@ -104,9 +104,6 @@ namespace MonjurTask.Controllers
 
             var meetingMinuteInputModel = new MeetingMinute_InputModel();
 
-            //old
-            //ViewData["Customer"] = Enumerable.Empty<SelectListItem>();
-
             //new
             ViewData["Customers"] = ViewData["Customers"] ?? Enumerable.Empty<SelectListItem>();
 
@@ -174,69 +171,5 @@ namespace MonjurTask.Controllers
             return View(meetingMinute_InputModel);
         }
 
-
-
-
-
-
-
-        //old
-
-
-
-        //// POST: MeetingMinute/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create(MeetingMinute_InputModel meetingMinute_InputModel)
-        //{
-        //    ViewData["CorporateCustomers"] = new SelectList(await _context.Corporate_Customer_Tbl.ToListAsync(), "CorporateCustomerID", "CorporateCustomerName");
-
-        //    ViewData["IndividualCustomers"] = new SelectList(await _context.Individual_Customer_Tbl.ToListAsync(), "IndividualCustomerID", "IndividualCustomerName");
-
-        //    ViewData["ProductsServices"] = new SelectList(await _context.Products_Service_Tbl.ToListAsync(), "ProductServiceID", "ProductServiceName");
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        // Map properties here for the First Part
-        //        var meetingMinuteMaster = new MeetingMinuteMaster
-        //        {
-        //            // Map properties for the first part here
-        //            CustomerType = meetingMinute_InputModel.CustomerType,
-        //            CorporateCustomerID = meetingMinute_InputModel.CustomerType == CustomerType.Corporate ? meetingMinute_InputModel.CorporateCustomerID : null,
-        //            IndividualCustomerID = meetingMinute_InputModel.CustomerType == CustomerType.Individual ? meetingMinute_InputModel.IndividualCustomerID : null,
-        //            Date = meetingMinute_InputModel.Date,
-        //            Time = meetingMinute_InputModel.Time,
-        //            MeetingPlace = meetingMinute_InputModel.MeetingPlace,
-        //            AttendsFromClient = meetingMinute_InputModel.AttendsFromClient,
-        //            AttendsFromHost = meetingMinute_InputModel.AttendsFromHost,
-        //            Agenda = meetingMinute_InputModel.Agenda,
-        //            Discussion = meetingMinute_InputModel.Discussion,
-        //            Decision = meetingMinute_InputModel.Decision
-        //        };
-
-        //        // Save First Part data
-        //        _context.Meeting_Minutes_Master_Tbl.Add(meetingMinuteMaster);
-        //        await _context.SaveChangesAsync();
-
-        //        // Map properties for the Second Part
-        //        var meetingMinuteDetail = new MeetingMinuteDetail
-        //        {
-        //            // Map properties for the second part here
-        //            MeetingMinuteMasterID = meetingMinuteMaster.MeetingMinuteMasterID,
-        //            ProductServiceID = meetingMinute_InputModel.ProductServiceID,
-        //            Quantity = meetingMinute_InputModel.Quantity
-        //        };
-
-        //        // Save Second Part data
-        //        _context.Meeting_Minutes_Details_Tbl.Add(meetingMinuteDetail);
-        //        await _context.SaveChangesAsync();
-
-        //        // Redirect to the index or any other appropriate action
-        //        return RedirectToAction(nameof(Index));
-        //    }
-
-        //    // If there are validation errors, redisplay the form
-        //    return View(meetingMinute_InputModel);
-        //}
     }
 }
