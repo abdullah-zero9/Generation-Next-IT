@@ -1,0 +1,133 @@
+﻿<h1>Create Meeting Minute</h1>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label asp-for="CustomerType" class="control-label">Customer Type</label>
+        <div>
+            <label><input type="radio" asp-for="CustomerType" value="Corporate" /> Corporate</label>
+            <label><input type="radio" asp-for="CustomerType" value="Individual" /> Individual</label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SelectedCustomerName" class="control-label">Customer Name</label>
+        <div>
+            <select asp-for="SelectedCustomerName" class="form-control">
+
+@*                 @foreach (var customer in (IEnumerable<SelectListItem>)ViewData["Customers"])
+                {
+                    <option value="@customer.Value">@customer.Text</option>
+                } *@
+
+                @foreach (var customer in (IEnumerable<SelectListItem>)(ViewData["Customers"] ?? Enumerable.Empty<SelectListItem>()))
+                    {
+                        if (customer != null)
+                        {
+                            <option value="@customer.Value">@customer.Text</option>
+                        }
+                        else
+                        {
+                            <p style="color: orange;">Warning: Empty Customers list.</p>
+                        }
+                    }
+
+
+            </select>
+            <span asp-validation-for="SelectedCustomerName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Date" class="control-label">Date</label>
+        <div>
+            <input asp-for="Date" class="form-control" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Time" class="control-label">Time</label>
+        <div>
+            <input asp-for="Time" class="form-control" />
+            <span asp-validation-for="Time" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProductServiceID" class="control-label">Product/Service</label>
+        <div>
+            <select asp-for="ProductServiceID" class="form-control" asp-items="@ViewBag.ProductsServices"></select>
+            <span asp-validation-for="ProductServiceID" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Unit" class="control-label">Unit</label>
+        <div>
+            <input asp-for="Unit" class="form-control" readonly />
+            <span asp-validation-for="Unit" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Quantity" class="control-label">Quantity</label>
+        <div>
+            <input asp-for="Quantity" class="form-control" />
+            <span asp-validation-for="Quantity" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MeetingPlace" class="control-label">Meeting Place</label>
+        <div>
+            <input asp-for="MeetingPlace" class="form-control" />
+            <span asp-validation-for="MeetingPlace" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AttendsFromClient" class="control-label">Attends From Client Side</label>
+        <div>
+            <textarea asp-for="AttendsFromClient" class="form-control"></textarea>
+            <span asp-validation-for="AttendsFromClient" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AttendsFromHost" class="control-label">Attends From Host Side</label>
+        <div>
+            <textarea asp-for="AttendsFromHost" class="form-control"></textarea>
+            <span asp-validation-for="AttendsFromHost" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Agenda" class="control-label">Agenda</label>
+        <div>
+            <textarea asp-for="Agenda" class="form-control"></textarea>
+            <span asp-validation-for="Agenda" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Discussion" class="control-label">Discussion</label>
+        <div>
+            <textarea asp-for="Discussion" class="form-control"></textarea>
+            <span asp-validation-for="Discussion" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Decision" class="control-label">Decision</label>
+        <div>
+            <textarea asp-for="Decision" class="form-control"></textarea>
+            <span asp-validation-for="Decision" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
